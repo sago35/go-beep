@@ -1,7 +1,6 @@
-package main
+package beep
 
 import (
-	"fmt"
 	"strings"
 	"syscall"
 	//"unsafe"
@@ -33,17 +32,9 @@ var note2freq = map[string]int{
 	`b`: 493,
 }
 
-func play(score string) {
+func Play(score string) {
 	for _, n := range strings.Split(score, " ") {
 		beep(note2freq[n] * 3, 130)
 	}
 }
 
-func main() {
-	defer syscall.FreeLibrary(kernel32)
-
-	score := `e c d a e c d a`
-
-	fmt.Printf(score)
-	play(score)
-}
