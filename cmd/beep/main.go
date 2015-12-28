@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	score := `e c d a e c d a`
+	score := `e c d a e' c d, a`
 
 	fmt.Printf(score)
 	beep.Play(score)
