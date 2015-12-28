@@ -3,7 +3,6 @@ package beep
 import (
 	"strings"
 	"syscall"
-	//"unsafe"
 )
 
 var (
