@@ -1,6 +1,8 @@
 package beep
 
 import (
+	"fmt"
+	"regexp"
 	"strings"
 	"syscall"
 )
@@ -32,8 +34,18 @@ var note2freq = map[string]int{
 }
 
 func Play(score string) {
+	re := regexp.MustCompile(`([a-g])([',]?)`)
+	octave := 1
+
 	for _, n := range strings.Split(score, " ") {
-		beep(note2freq[n] * 3, 130)
+		match := re.FindAllStringSubmatch(n, -1)
+		fmt.Println(match)
+		if match[0][2] == `'` {
+			octave = octave * 2
+		} else if match[0][2] == `,` {
+			octave = octave / 2
+		}
+		beep(note2freq[match[0][1]] * octave, 130)
 	}
 }
 
