@@ -1,13 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"github.com/sago35/go-beep"
+	"os"
 )
 
-func main() {
-	score := `c2. d4 e2. c4 e2 c e1`
+var VERSION string = `0.1.0`
 
-	fmt.Printf("%v\n", score)
-	beep.Play(score)
+func main() {
+	cli := &CLI{outStream: os.Stdout, errStream: os.Stderr}
+	os.Exit(cli.Run(os.Args))
 }
