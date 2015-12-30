@@ -6,8 +6,8 @@ import (
 )
 
 func main() {
-	score := `e c d a e' c d, a`
+	score := `c2. d4 e2. c4 e2 c e1`
 
-	fmt.Printf(score)
+	fmt.Printf("%v\n", score)
 	beep.Play(score)
 }
