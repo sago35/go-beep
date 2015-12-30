@@ -23,7 +23,6 @@ func beep(freq, duration int) {
 	)
 }
 
-
 var note2freq = map[string]int{
 	`c`: 261,
 	`d`: 293,
@@ -59,7 +58,6 @@ func Play(score string) {
 				}
 			}
 		}
-		beep(note2freq[match[0][1]] * octave, 200 * 4 / duration)
+		beep(note2freq[match[0][1]]*octave, 200*4/duration)
 	}
 }
-
