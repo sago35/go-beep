@@ -60,7 +60,10 @@ func Play(score string) {
 				}
 			}
 		}
-		beep(note2freq[match[0][1]]*octave, int(_duration(duration, bpm)))
+
+		timer := time.After(time.Duration(_duration(duration, bpm)) * time.Millisecond)
+		beep(note2freq[match[0][1]]*octave, int(_duration(duration, bpm) * 0.9))
+		<-timer
 	}
 }
 
