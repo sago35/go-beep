@@ -1,9 +1,9 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"github.com/sago35/go-beep"
+	"gopkg.in/alecthomas/kingpin.v2"
 	"io"
 )
 
@@ -18,26 +18,22 @@ type CLI struct {
 	errStream io.Writer
 }
 
+var (
+	version = kingpin.Flag("version", "Print version information and quit").Bool()
+	score   = kingpin.Arg("score", "Input score").String()
+)
+
 func (c *CLI) Run(args []string) int {
-	var version bool
-	var score string
+	kingpin.CommandLine.HelpFlag.Short('h')
+	kingpin.Parse()
 
-	flags := flag.NewFlagSet("beep", flag.ContinueOnError)
-	flags.SetOutput(c.errStream)
-	flags.BoolVar(&version, "version", false, "Print version information and quit")
-	flags.StringVar(&score, "score", ``, "Score")
-
-	if err := flags.Parse(args[1:]); err != nil {
-		return ExitCodeParseFlagError
-	}
-
-	if version {
+	if *version {
 		fmt.Fprintf(c.errStream, "beep version %s\n", VERSION)
 		return ExitCodeOK
 	}
 
-	if len(score) > 0 {
-		beep.Play(score)
+	if len(*score) > 0 {
+		beep.Play(*score)
 	}
 
 	return ExitCodeOK
