@@ -38,6 +38,7 @@ func Play(score string) {
 	re := regexp.MustCompile(`([a-g])([',]?)(\d*)(\.?)`)
 	octave := 1
 	duration := 4
+	bpm := 120
 
 	for _, n := range strings.Split(score, " ") {
 		match := re.FindAllStringSubmatch(n, -1)
@@ -59,7 +60,7 @@ func Play(score string) {
 				}
 			}
 		}
-		beep(note2freq[match[0][1]]*octave, int(_duration(duration, 120)))
+		beep(note2freq[match[0][1]]*octave, int(_duration(duration, bpm)))
 	}
 }
 
