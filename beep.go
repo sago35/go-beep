@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"strings"
 	"syscall"
+	"time"
 )
 
 var (
@@ -58,6 +59,10 @@ func Play(score string) {
 				}
 			}
 		}
-		beep(note2freq[match[0][1]]*octave, 200*4/duration)
+		beep(note2freq[match[0][1]]*octave, int(_duration(duration, 120)))
 	}
+}
+
+func _duration(duration, bpm int) float64 {
+	return 60.0 * 1000.0 / float64(bpm) * (4.0 / float64(duration))
 }
