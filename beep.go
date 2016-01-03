@@ -35,25 +35,32 @@ var note2freq = map[string]int{
 }
 
 func Play(score string) {
-	re := regexp.MustCompile(`([a-gr])([',]?)(\d*)(\.?)`)
+	re := regexp.MustCompile(`([a-gr])(is|es)?([',]?)(\d*)(\.?)`)
 	octave := 1
 	duration := 4
 	bpm := 120
 
 	for _, n := range strings.Split(score, " ") {
+		var alteration float32 = 1.0
 		match := re.FindAllStringSubmatch(n, -1)
 		fmt.Println(match)
-		if match[0][2] == `'` {
+		if match[0][3] == `'` {
 			octave = octave * 2
-		} else if match[0][2] == `,` {
+		} else if match[0][3] == `,` {
 			octave = octave / 2
 		}
 
-		if match[0][3] != `` {
-			d, err := strconv.Atoi(match[0][3])
+		if match[0][2] == `is` {
+			alteration = 0.94
+		} else if match[0][2] == `es` {
+			alteration = 1.06
+		}
+
+		if match[0][4] != `` {
+			d, err := strconv.Atoi(match[0][4])
 			if err != nil {
 			} else {
-				if match[0][4] == `.` {
+				if match[0][5] == `.` {
 					duration = d * 3 / 4
 				} else {
 					duration = d
@@ -63,7 +70,7 @@ func Play(score string) {
 
 		timer := time.After(time.Duration(_duration(duration, bpm)) * time.Millisecond)
 		if match[0][1] != `r` {
-			beep(note2freq[match[0][1]]*octave, int(_duration(duration, bpm) * 0.9))
+			beep(int(float32(note2freq[match[0][1]])*float32(octave)*alteration), int(_duration(duration, bpm) * 0.9))
 		}
 		<-timer
 	}
