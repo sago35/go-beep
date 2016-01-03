@@ -35,7 +35,7 @@ var note2freq = map[string]int{
 }
 
 func Play(score string) {
-	re := regexp.MustCompile(`([a-g])([',]?)(\d*)(\.?)`)
+	re := regexp.MustCompile(`([a-gr])([',]?)(\d*)(\.?)`)
 	octave := 1
 	duration := 4
 	bpm := 120
@@ -62,7 +62,9 @@ func Play(score string) {
 		}
 
 		timer := time.After(time.Duration(_duration(duration, bpm)) * time.Millisecond)
-		beep(note2freq[match[0][1]]*octave, int(_duration(duration, bpm) * 0.9))
+		if match[0][1] != `r` {
+			beep(note2freq[match[0][1]]*octave, int(_duration(duration, bpm) * 0.9))
+		}
 		<-timer
 	}
 }
