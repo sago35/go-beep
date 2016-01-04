@@ -33,7 +33,7 @@ func (c *CLI) Run(args []string) int {
 	}
 
 	if len(*score) > 0 {
-		beep.Play(*score)
+		beep.Play(*score, 120)
 	}
 
 	return ExitCodeOK

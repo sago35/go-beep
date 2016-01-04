@@ -34,11 +34,10 @@ var note2freq = map[string]int{
 	`b`: 493,
 }
 
-func Play(score string) {
+func Play(score string, bpm int) {
 	re := regexp.MustCompile(`([a-gr])(is|es)?([',]?)(\d*)(\.?)`)
 	octave := 1
 	duration := 4
-	bpm := 120
 
 	for _, n := range strings.Split(score, " ") {
 		var alteration float32 = 1.0
