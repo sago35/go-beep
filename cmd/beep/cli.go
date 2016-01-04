@@ -20,6 +20,7 @@ type CLI struct {
 
 var (
 	version = kingpin.Flag("version", "Print version information and quit").Bool()
+	bpm     = kingpin.Flag("bpm", "Change the tempo of the music").Default("120").Int()
 	score   = kingpin.Arg("score", "Input score").String()
 )
 
@@ -33,7 +34,7 @@ func (c *CLI) Run(args []string) int {
 	}
 
 	if len(*score) > 0 {
-		beep.Play(*score, 120)
+		beep.Play(*score, *bpm)
 	}
 
 	return ExitCodeOK
