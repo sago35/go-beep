@@ -36,7 +36,7 @@ var note2freq = map[string]int{
 
 func Play(score string, bpm int) {
 	re := regexp.MustCompile(`([a-gr])(is|es)?([',]?)(\d*)(\.?)`)
-	octave := 1
+	octave := 1.0
 	duration := 4
 
 	for _, n := range strings.Split(score, " ") {
@@ -44,9 +44,11 @@ func Play(score string, bpm int) {
 		match := re.FindAllStringSubmatch(n, -1)
 		fmt.Println(match)
 		if match[0][3] == `'` {
-			octave = octave * 2
+			octave = 2.0
 		} else if match[0][3] == `,` {
-			octave = octave / 2
+			octave = 0.5
+		} else {
+			octave = 1.0
 		}
 
 		if match[0][2] == `is` {
