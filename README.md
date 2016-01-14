@@ -7,6 +7,20 @@ PCのbeepを鳴らすためのライブラリを作成していく予定
 
 ```
 $ go build ./cmd/beep
-
-$ beep.exe --score "c2. d4 e2. c4 e2 c e1"
 ```
+
+# usage
+
+```
+usage: beep [<flags>] [<score>]
+
+Flags:
+  -h, --help     Show context-sensitive help (also try --help-long and
+                 --help-man).
+      --version  Print version information and quit
+      --bpm=120  Change the tempo of the music
+
+Args:
+  [<score>]  Input score
+```
+
