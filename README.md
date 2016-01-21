@@ -12,7 +12,7 @@ $ go build ./cmd/beep
 # usage
 
 ```
-usage: beep [<flags>] [<score>]
+usage: beep [<flags>] [<score>...]
 
 Flags:
   -h, --help     Show context-sensitive help (also try --help-long and
