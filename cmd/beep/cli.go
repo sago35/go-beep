@@ -5,6 +5,7 @@ import (
 	"github.com/sago35/go-beep"
 	"gopkg.in/alecthomas/kingpin.v2"
 	"io"
+	"strings"
 )
 
 const (
@@ -21,7 +22,7 @@ type CLI struct {
 var (
 	version = kingpin.Flag("version", "Print version information and quit").Bool()
 	bpm     = kingpin.Flag("bpm", "Change the tempo of the music").Default("120").Int()
-	score   = kingpin.Arg("score", "Input score").String()
+	score   = kingpin.Arg("score", "Input score").Strings()
 )
 
 func (c *CLI) Run(args []string) int {
@@ -34,7 +35,7 @@ func (c *CLI) Run(args []string) int {
 	}
 
 	if len(*score) > 0 {
-		beep.Play(*score, *bpm)
+		beep.Play(strings.Join(*score, " "), *bpm)
 	}
 
 	return ExitCodeOK
